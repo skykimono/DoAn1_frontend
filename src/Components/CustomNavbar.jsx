@@ -18,7 +18,6 @@ export default function CustomNavbar() {
 
 
 
-
     const getAllCategories = async () => {
       const res = await axios.get(`${config.URL}category`)
       console.log(res.data);
