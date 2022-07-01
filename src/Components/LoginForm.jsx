@@ -1,16 +1,16 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import axios from 'axios';
-
+import axios from '../apis/axios-api';
 import config from '../config';
 import { useState, useEffect } from 'react';
 
 
-
+const LOGIN_URL = '/auth/login'
 
 function LoginForm() {
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [result,setResult] = useState("");
 
   //const [user, setUser] = useState(
    // {
@@ -21,23 +21,31 @@ function LoginForm() {
 
   const [res, setRes] = useState('01');
 
-  const postLoginrq = async (pusername,ppassword) => {  
-    try{
-    const response = await axios.post(`${config.URL}auth/login`,{username: pusername,
-    password: ppassword});
-    console.log(response);
-    return response.data}
-    catch(err){
-      return err;
-    }
 
-  }
-
+  
   const handleLogin = async (e) => {
-    e.preventDefautl();
-    const data = await postLoginrq(username,password);
-    console.log(data);
-    setRes(data);
+
+    e.preventDefault();
+    
+    try {
+      const data = {
+        username: username,
+        password: password
+      }
+      console.log(data);
+      const response = await axios.post(LOGIN_URL,data,
+      {
+        headers: { 'Content-Type': 'application/json' },
+        'Access-Control-Allow-Credentials':true
+    });
+
+    console.log(response);
+    setResult(response.data);
+
+    }
+    catch(err){
+      console.log(err)
+    }
   }
   
 
@@ -67,7 +75,7 @@ function LoginForm() {
       <div style={{display: 'flex',justifyContent: 'center',alignItems: 'center'}}>
         <Button variant="primary" type="submit" style={{fontSize: 20, width: 110, height: 50}} 
         onClick = {e=> handleLogin(e)}> Login</Button></div>
-        <p>{}</p>
+       
     </Form>
   
   );
