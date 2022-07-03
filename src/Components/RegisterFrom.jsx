@@ -1,14 +1,60 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import axios from '../apis/axios-api';
+import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {useState, useEffect} from 'react';
 
-function user({
-  username,
-  password,
-}){
-  return
-}
+const REGISTER_URL = '/auth/register';
 
 function RegisterForm() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const[repassword, setRepassword] = useState("");
+  const [name, setName] = useState("");
+  const [validMatch, setValidMatch] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
+  const [validUsername, setValidUsername] = useState(false);
+  const [validname, setValidName] = useState(false);
+
+
+  useEffect(()=>{
+    setValidUsername(username!=='')
+  })
+
+  useEffect(()=>{
+    setValidName(name!=='')
+  })
+
+  useEffect(() => {
+    setValidPassword(password!=='');
+    setValidMatch(password === repassword);
+    console.log(validMatch)
+}, [password, repassword])
+
+  const handleRegister = async(e) =>{
+    e.preventDefault();
+    try {
+      const data = {
+        username: username,
+        password: password,
+        fullname: name
+      }
+      const response = await axios.post(REGISTER_URL, data,
+        {
+          headers: { 'Content-Type': 'application/json' },
+          'Access-Control-Allow-Credentials': true
+        });
+
+        console.log(response.data)
+  }
+
+  catch(err){
+    console.log(err)
+  }
+}
+
+
   return (
     <Form>
     <div style={{
@@ -23,7 +69,9 @@ function RegisterForm() {
       weight: 'auto',
     }}>
       <Form.Label style={{fontSize: 20,}}>Username</Form.Label>
-      <Form.Control type="username" placeholder="Enter username" style={{fontsize: 20, width: 500, height: 50, borderColor: 'grey'}}/>
+      <Form.Control type="username" placeholder="Enter username" style={{fontsize: 20, width: 500, height: 50, borderColor: 'grey'}}
+     onChange={(e) => setUsername(e.target.value)}
+     value={username}/>
     </Form.Group>
     
     <Form.Group className="mb-3" controlId="formName" style={{
@@ -31,21 +79,41 @@ function RegisterForm() {
       weight: 'auto',
     }}>
       <Form.Label style={{fontSize: 20,}}>FullName</Form.Label>
-      <Form.Control type="username" placeholder="Enter your name" style={{fontsize: 20, width: 500, height: 50, borderColor: 'grey'}}/>
+      <Form.Control type="name" placeholder="Enter your name" style={{fontsize: 20, width: 500, height: 50, borderColor: 'grey'}}
+       onChange={(e) => setName(e.target.value)}
+       value={name}/>
     </Form.Group>
     <Form.Group className="mb-3" controlId="formBasicPassword"style={{fontSize: 20,}}>
       <Form.Label>Password</Form.Label>
-      <Form.Control type="password" placeholder=" Enter your Password" style={{fontsize: 20, width: 500, height: 50,borderColor: 'grey'}}/>
+      <Form.Control type="password" placeholder=" Enter your Password" style={{fontsize: 20, width: 500, height: 50,borderColor: 'grey'}}
+       onChange={(e) => setPassword(e.target.value)}
+       value={password}/>
     </Form.Group>
-    <Form.Group className="mb-3" controlId="formBasicPassword"style={{fontSize: 20,}}>
+    <Form.Group className="mb-3" controlId="formBasicPassword2"style={{fontSize: 20,}}>
       <Form.Label>Password Confirm</Form.Label>
-      <Form.Control type="password" placeholder="Re-type password" style={{fontsize: 20, width: 500, height: 50,borderColor: 'grey'}}/>
-    </Form.Group>
-    <Form.Group className="mb-3" controlId="formBasicCheckbox">
-      <Form.Check type="checkbox" label="Check me out" />
+      <Form.Control type="password" placeholder="Re-type password" style={{fontsize: 20, width: 500, height: 50,borderColor: 'grey'}}
+      onChange={(e) => setRepassword(e.target.value)}
+      value={repassword}
+      required
+                            aria-invalid={validMatch ? "false" : "true"}
+                            aria-describedby="confirmnote"
+      
+      />
+      <p id="confirmnote" className={!validMatch ? "instructions" : "offscreen"}>
+                            <FontAwesomeIcon icon={faInfoCircle} />
+                            Must match the first password input field.
+                        </p>
     </Form.Group>
     <div style={{display: 'flex',justifyContent: 'center',alignItems: 'center'}}>
-      <Button variant="primary" type="submit" style={{fontSize: 20, width: 110, height: 50}} > Register</Button></div>
+      <Button variant="primary" type="submit" style={{fontSize: 20, width: 110, height: 50}}  disabled={!validMatch||!validPassword||!validUsername||!validname}
+      onClick={e => handleRegister(e)}> Register</Button></div>
+      <p style ={{fontSize: 20,}}>
+                        Already registered?<br />
+                        <span className="line">
+                            {/*put router link here*/}
+                            <a href="#">LOGIN</a>
+                        </span>
+                    </p>
   </Form>
   );
 }
