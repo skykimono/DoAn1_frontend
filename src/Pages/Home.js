@@ -2,16 +2,18 @@ import axios from '../apis/axios-api';
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import CustomNavbar from '../Components/CustomNavbar'
-import MyNav from '../Components/MyNav'
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { update } from '../redux/user/userState';
+import Postlist from '../Components/Postlist';
+import { Container } from '@mui/system';
+
 
 const RefreshUrl = "auth/refresh"
 
 
 export default function Home() {
     const user = useSelector(state => state.userState)
-  
+
     useEffect(() => {
         const data = {
             refreshToken: JSON.parse(localStorage.getItem("refeshToken"))
@@ -32,11 +34,20 @@ export default function Home() {
         }, 60000)
         return () => {
             clearInterval(myinterval)
-          }
+        }
+
+        
 
     }, [user])
 
-    return (<>
+    return (<div style={{backgroundColor: 'grey',minHeight:'762px'}}>
         <CustomNavbar />
-    </>)
+        <div style={{height: 100}}></div>
+
+        <Container maxWidth='lg'>
+            <Postlist/>
+        </Container>
+
+
+    </div>)
 }
