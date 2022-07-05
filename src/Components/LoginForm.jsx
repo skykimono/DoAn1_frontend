@@ -1,21 +1,24 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
 import axios from '../apis/axios-api';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux/es/exports';
 import { update } from '../redux/user/userState';
 import { useNavigate } from 'react-router-dom';
 
+
 const LOGIN_URL = '/auth/login'
 const Profile_URL = '/user/profile'
 
 function LoginForm() {
-  const user1 = useSelector(state => state.userState)
+  const user1 = useSelector(state => state.userState.token)
   let dispatch = useDispatch()
   let navigate = useNavigate()
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [visible, setVisible] = useState(false);
 
 
   //const [user, setUser] = useState(
@@ -25,9 +28,15 @@ function LoginForm() {
   //}
   //)
 
-  const [res, setRes] = useState('01');
+  useEffect(()=>{
+    if(localStorage.getItem('accessToken')!==null)
+    {navigate('/')}
+  })
 
 
+  useEffect(() => {
+    setVisible(false);
+}, [username, password])
 
   const handleLogin = async (e) => {
 
@@ -56,6 +65,7 @@ function LoginForm() {
     }
     catch (err) {
       console.log(err)
+      setVisible(true)
     }
   }
 
@@ -83,6 +93,9 @@ function LoginForm() {
           onChange={(e) => setPassword(e.target.value)}
           value={password} />
       </Form.Group>
+      <Alert show={visible}  variant='danger'>
+          Login Fail!
+        </Alert>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Button variant="primary" type="submit" style={{ fontSize: 20, width: 110, height: 50 }}
           onClick={e => handleLogin(e)}> Login</Button></div>

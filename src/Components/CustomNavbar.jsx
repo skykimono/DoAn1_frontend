@@ -57,7 +57,7 @@ export default function CustomNavbar() {
                     <Nav.Link as={Link} to="/register">Register</Nav.Link>
                   </React.Fragment>
                   :
-                  <Nav.Link onClick={() => {
+                  <Nav.Link className="justify-content-end" onClick={() => {
                     dispatch(logout())
                   }}>Log out</Nav.Link>
               }

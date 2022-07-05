@@ -1,10 +1,11 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Alert from 'react-bootstrap/Alert';
 import axios from '../apis/axios-api';
 import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {useState, useEffect} from 'react';
-
+import { useNavigate } from 'react-router-dom';
 const REGISTER_URL = '/auth/register';
 
 function RegisterForm() {
@@ -16,7 +17,14 @@ function RegisterForm() {
   const [validPassword, setValidPassword] = useState(false);
   const [validUsername, setValidUsername] = useState(false);
   const [validname, setValidName] = useState(false);
+  const [regis, setRegis] = useState(false);
+  const [regisfail, setRegisfail] = useState(false);
+  let navigate = useNavigate()
 
+  useEffect(()=>{
+    if(localStorage.getItem('accessToken')!==null)
+    {navigate('/')}
+  })
 
   useEffect(()=>{
     setValidUsername(username!=='')
@@ -25,6 +33,10 @@ function RegisterForm() {
   useEffect(()=>{
     setValidName(name!=='')
   })
+  useEffect(() => {
+    setRegis(false);
+    setRegisfail(false);
+}, [username, password,name,repassword])
 
   useEffect(() => {
     setValidPassword(password!=='');
@@ -47,10 +59,12 @@ function RegisterForm() {
         });
 
         console.log(response.data)
+        setRegis(true)
   }
 
   catch(err){
     console.log(err)
+    setRegisfail(true)
   }
 }
 
@@ -101,9 +115,14 @@ function RegisterForm() {
       />
       <p id="confirmnote" className={!validMatch ? "instructions" : "offscreen"}>
                             <FontAwesomeIcon icon={faInfoCircle} />
-                            Must match the first password input field.
-                        </p>
+                            Must match the first password input field.</p>
     </Form.Group>
+    <Alert show={regis}  variant='success'>
+          Create Account Successfully!
+        </Alert>
+        <Alert show={regisfail}  variant='danger'>
+          Register Fail! Please choose another Username!
+        </Alert>
     <div style={{display: 'flex',justifyContent: 'center',alignItems: 'center'}}>
       <Button variant="primary" type="submit" style={{fontSize: 20, width: 110, height: 50}}  disabled={!validMatch||!validPassword||!validUsername||!validname}
       onClick={e => handleRegister(e)}> Register</Button></div>
