@@ -45,7 +45,7 @@ export default function CustomNavbar() {
             <Nav className="me-auto">
               <Nav.Link as={Link} to="/">Home</Nav.Link>
               <NavDropdown title="Categories" id="basic-nav-dropdown">
-                {categories.map((category, index) => <NavDropdown.Item key={index} onClick={()=>{navigate('/categories/'+category)}}>{category}</NavDropdown.Item>)}
+                {categories.slice(0,3).map((category, index) => <NavDropdown.Item key={index} onClick={()=>{navigate('/categories/'+category)}}>{category}</NavDropdown.Item>)}
                 <NavDropdown.Divider></NavDropdown.Divider>
                 <NavDropdown.Item onClick={()=>{navigate('/allcategories')}}>
                   All Categories
@@ -60,6 +60,7 @@ export default function CustomNavbar() {
                   :
                   <React.Fragment>
                   <Nav.Link as={Link} to="/mypost">My Post</Nav.Link>
+                  <Nav.Link as={Link} to="/newpost">New Post</Nav.Link>
                   <Nav.Link className="justify-content-end" style={{color: 'red'}} onClick={() => {
                     dispatch(logout())
                   }}>LOG OUT</Nav.Link>

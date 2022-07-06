@@ -8,6 +8,7 @@ import Category from "./Components/Category";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import UserPost from "./Components/UserPost";
 import AllCategories from "./Components/AllCategories";
+import NewPost from "./Components/NewPost";
 
 
 const darkTheme = createTheme({
@@ -28,6 +29,7 @@ function App() {
         <Route path="/categories/:category" element={<Category />} />
         <Route path="/allcategories" element={<AllCategories />} />
         <Route path="/mypost" element={<UserPost />} />
+        <Route path="/newpost" element={<NewPost />} />
       </Routes>
       </ThemeProvider>
     </div>

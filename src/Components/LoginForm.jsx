@@ -99,6 +99,13 @@ function LoginForm() {
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <Button variant="primary" type="submit" style={{ fontSize: 20, width: 110, height: 50 }}
           onClick={e => handleLogin(e)}> Login</Button></div>
+           <p style ={{fontSize: 20,}}>
+                        Don't have an Account??<br />
+                        <span className="line">
+                            {/*put router link here*/}
+                            <a href="/register">REGISTER</a>
+                        </span>
+                    </p>
 
     </Form>
 

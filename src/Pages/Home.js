@@ -31,7 +31,7 @@ export default function Home() {
         fetchData()
         const myinterval = setInterval(() => {
             fetchData()
-        }, 60000)
+        }, 6000)
         return () => {
             clearInterval(myinterval)
         }
@@ -47,6 +47,7 @@ export default function Home() {
         <Container maxWidth='lg'>
             <Postlist/>
         </Container>
+        <div style={{height: 500}}></div>
 
 
     </div>)

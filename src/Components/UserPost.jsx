@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import CustomNavbar from './CustomNavbar';
 import Container from 'react-bootstrap/Container';
 import { useSelector } from 'react-redux/es/exports';
@@ -73,7 +73,7 @@ const UserPost = () => {
  {posts.map((cate) =>{ return(
      <Grid item xs={4}key={cate._id}>
      <Card sx={{ maxWidth: 345, maxHeight: 410 }} variant='dark'>
-             <CardActionArea  onClick={()=>{navigate('post/'+cate._id)}}>
+             <CardActionArea  onClick={()=>{navigate('/post/'+cate._id)}}>
                <CardMedia
                  component="img"
                  height="200"
@@ -99,6 +99,7 @@ const UserPost = () => {
  )})}
 </Grid>
 </Container>
+<div style={{height: 500}}></div>
 </div>)
 }
 

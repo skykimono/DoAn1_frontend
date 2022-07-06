@@ -32,6 +32,7 @@ const AllCategories = () => {
         </h1>
         )}
         </Container>
+        <div style={{height: 300}}></div>
         </div>
   )
 }

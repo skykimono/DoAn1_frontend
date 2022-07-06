@@ -35,7 +35,7 @@ const Category = () => {
      {categories.map((cate) =>{ return(
          <Grid item xs={4}key={cate._id}>
          <Card sx={{ maxWidth: 345, maxHeight: 410 }} variant='dark'>
-                 <CardActionArea  onClick={()=>{navigate('post/'+cate._id)}}>
+                 <CardActionArea  onClick={()=>{navigate('/post/'+cate._id)}}>
                    <CardMedia
                      component="img"
                      height="200"
@@ -61,6 +61,7 @@ const Category = () => {
      )})}
   </Grid>
   </Container>
+  <div style={{height: 500}}></div>
   </div>)
 }
 

@@ -19,7 +19,9 @@ const Post = () => {
             <Container key={item._id}>
               <h1 style={{ fontSize: "4rem", color: 'white' }}>{item.title}</h1>
               <div style={{height: 70}}></div>
-              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}><img src={`${item.photo}`} /></div>
+              <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}><img 
+              src={`${item.photo}`} 
+              style={{maxHeight: '500px', maxWidth: '650px', minWidth:'650px', minHeight: '500px' }}/></div>
               <div style={{height: 40}}></div>
               <h5 style={{ color: 'aqua' }}>{item.categories}</h5>
               <h3 style={{ color: 'white' }}> {`By: ${item.username}`}</h3>
@@ -31,7 +33,7 @@ const Post = () => {
       }
       )
       }
-
+      <div style={{height: 500}}></div>
     </div>
   )
 }
