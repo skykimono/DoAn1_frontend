@@ -21,6 +21,7 @@ const Postlist = () => {
   const getAllPosts = async () => {
     const res = await axios.get('post')
    setPostlist(res.data);
+   localStorage.setItem("postlist", JSON.stringify(res.data));
 
   }
 

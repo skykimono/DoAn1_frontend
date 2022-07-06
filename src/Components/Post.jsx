@@ -8,7 +8,6 @@ import { Container } from '@mui/system';
 
 const Post = () => {
   const { _id } = useParams();
-  console.log(_id, "hêllo");
   return (
     <div style={{backgroundColor: 'black',minHeight:'762px'}}>
       <CustomNavbar></CustomNavbar>
