@@ -130,7 +130,7 @@ function RegisterForm() {
                         Already registered?<br />
                         <span className="line">
                             {/*put router link here*/}
-                            <a href="#">LOGIN</a>
+                            <a href="/login">LOGIN</a>
                         </span>
                     </p>
   </Form>

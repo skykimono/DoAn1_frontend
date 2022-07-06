@@ -34,7 +34,7 @@ const Postlist = () => {
     <Grid container spacing={6}>
       { JSON.parse(localStorage.getItem("postlist")).map((item) =>{ return(
          <Grid item xs={4}key={item._id}>
-         <Card sx={{ maxWidth: 345 }} variant='dark'>
+         <Card sx={{ maxWidth: 345 , maxHeight: 410}} variant='dark'>
                  <CardActionArea  onClick={()=>{navigate('post/'+item._id)}}>
                    <CardMedia
                      component="img"
