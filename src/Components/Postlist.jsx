@@ -15,12 +15,12 @@ import { useNavigate } from 'react-router-dom';
 const getallpostURL = 'post'
 
 const Postlist = () => {
-  const postlist = useSelector(state => state.poslistState.postlist)
+  const [postlist, setPostlist] = useState([]);
   let dispatch = useDispatch()
   let navigate = useNavigate()
   const getAllPosts = async () => {
     const res = await axios.get('post')
-    dispatch(postupdate(res.data))
+   setPostlist(res.data);
 
   }
 
@@ -32,7 +32,7 @@ const Postlist = () => {
 
   return (
     <Grid container spacing={6}>
-      { JSON.parse(localStorage.getItem("postlist")).map((item) =>{ return(
+      { postlist.map((item) =>{ return(
          <Grid item xs={4}key={item._id}>
          <Card sx={{ maxWidth: 345 , maxHeight: 410}} variant='dark'>
                  <CardActionArea  onClick={()=>{navigate('post/'+item._id)}}>
