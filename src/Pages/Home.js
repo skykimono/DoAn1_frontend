@@ -40,7 +40,7 @@ export default function Home() {
 
     }, [user])
 
-    return (<div style={{backgroundColor: 'grey',minHeight:'762px'}}>
+    return (<div style={{backgroundColor: '#e5e5e5',minHeight:'762px'}}>
         <CustomNavbar />
         <div style={{height: 100}}></div>
 

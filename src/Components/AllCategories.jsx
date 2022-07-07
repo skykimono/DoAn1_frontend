@@ -20,11 +20,11 @@ const AllCategories = () => {
       },[categories])
 
   return (
-    <div style={{backgroundColor: 'grey',minHeight:'762px'}}>
+    <div style={{backgroundColor: 'black',minHeight:'762px'}}>
         <CustomNavbar />
         <div style={{height: 100}}></div>
         <Container maxWidth='lg'>
-            <h1 style={{fontSize: '5rem'}}>All Categories:</h1>
+            <h1 style={{fontSize: '5rem', color: 'white'}}>All Categories:</h1>
         {categories.map((category, index)=>
         <h1 key={index} 
         style={{color: 'aqua', cursor: 'pointer' }} 
